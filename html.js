@@ -3,20 +3,18 @@ import _ from 'lodash';
 
 // BEGIN (write your solution here)
 
-const acceptableTagsList = new Set(['a', 'link', 'img']);
-const acceptableTagsAttrs = {
+const mapping = {
   a: 'href',
-  link: 'href',
   img: 'src',
+  link: 'href',
 };
 
-export default tags => {
-  const filtered = tags.filter(({ name }) => acceptableTagsList.has(name));
-  const mapped = filtered.map(value => {
-    const { name } = value;
-    const attr = acceptableTagsAttrs[name];
-    return value[attr];
-  });
-  return mapped;
+const getLinks = tags => {
+  const filteredTags = tags.filter(tag => _.has(mapping, tag.name));
+  const paths = filteredTags.map(tag => tag[mapping[tag.name]]);
+
+  return paths;
 };
+
+export default getLinks;
 // END
