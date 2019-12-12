@@ -1,23 +1,23 @@
-##
-[![Hexlet Ltd. logo](https://raw.githubusercontent.com/Hexlet/hexletguides.github.io/master/images/hexlet_logo128.png)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package)
+### html.js
 
-This repository is created and maintained by the team and the community of Hexlet, an educational project. [Read more about Hexlet (in Russian)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package).
-##
+Реализуйте и экспортируйте по умолчанию функцию `getLinks(tags)`, которая принимает на вход список тегов, находит среди них теги `a`, `link` и `img`, а затем извлекает ссылки и возвращает список ссылок. Теги подаются на вход в виде массива, где каждый элемент это тег. Тег имеет следующую структуру:
 
-# nodejs-package
+-   `name` - имя тега.
+-   `href` или `src` - атрибуты. Атрибуты зависят от тега: img - src, a - href, link - href.
 
-[![Code Climate](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/gpa.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Issue Count](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/issue_count.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Build Status](https://travis-ci.org/hexlet-boilerplates/nodejs-package.svg?branch=master)](https://travis-ci.org/hexlet-boilerplates/nodejs-package)
-
-## Setup
-
-```sh
-$ make install
 ```
+import getLinks from './html.js';
 
-## Run tests
+const tags = [
+  { name: 'img', src: 'hexlet.io/assets/logo.png' },
+  { name: 'div' },
+  { name: 'link', href: 'hexlet.io/assets/style.css' },
+  { name: 'h1' },
+];
 
-```sh
-$ make test
+const links = getLinks(tags);
+// [
+//   'hexlet.io/assets/logo.png',
+//   'hexlet.io/assets/style.css'
+// ];
 ```
