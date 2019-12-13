@@ -9,23 +9,19 @@ export default class {
   }
 
   load(env) {
-    const config = JSON.parse(
-      fs.readFileSync(
-        path.join(this.pathToConfigs, `database.${env}.json`),
-        'utf8',
-      ),
-    );
-    if (Object.keys(config).includes('extend')) {
-      const { extend, ...rest } = config;
-      const extendedConfig = JSON.parse(
-        fs.readFileSync(
-          path.join(this.pathToConfigs, `database.${extend}.json`),
-          'utf8',
-        ),
-      );
-      return { ...extendedConfig, ...rest };
+    const fileName = `database.${env}.json`;
+    const filePath = path.join(this.pathToConfigs, fileName);
+    const raw = fs.readFileSync(filePath);
+    const config = JSON.parse(raw);
+
+    if (!config.extend) {
+      return config;
     }
-    return config;
+
+    const newEnv = config.extend;
+    const configWithoutExtend = _.omit(config, 'extend');
+
+    return { ...this.load(newEnv), ...configWithoutExtend };
   }
 }
 // END
