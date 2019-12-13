@@ -1,23 +1,25 @@
-// BEGIN (write your solution here)
-const createAttrs = ({ class: className = '', id = '', randomAttr = '' }) => {
-  const classAttr = className !== '' ? ` class="${className}"` : '';
-  const idAttr = id !== '' ? ` id="${id}"` : '';
-  const rand = randomAttr !== '' ? ` randomAttr="${randomAttr}"` : '';
-  return `${classAttr}${idAttr}${rand}`;
+const buildAttrs = tag => {
+  const excluded = ['name', 'tagType', 'body'];
+  return Object.keys(tag)
+    .filter(attr => !excluded.includes(attr))
+    .map(attr => ` ${attr}="${tag[attr]}"`)
+    .join('');
 };
+
 const mapping = {
-  pair: ({ name, body, ...rest }) => {
-    const attrs = createAttrs(rest);
-    return `<${name}${attrs}>${body}</${name}>`;
+  single: tag => {
+    const attrs = buildAttrs(tag);
+    return `<${tag.name}${attrs}>`;
   },
-  single: ({ name, ...rest }) => {
-    const attrs = createAttrs(rest);
-    return `<${name}${attrs}>`;
+  pair: tag => {
+    const attrs = buildAttrs(tag);
+    return `<${tag.name}${attrs}>${tag.body}</${tag.name}>`;
   },
 };
 
-export default tag => {
-  const { tagType } = tag;
-  return mapping[tagType](tag);
+const stringify = tag => {
+  const build = mapping[tag.tagType];
+  return build(tag);
 };
-// END
+
+export default stringify;
