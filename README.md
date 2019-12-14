@@ -1,23 +1,63 @@
-##
-[![Hexlet Ltd. logo](https://raw.githubusercontent.com/Hexlet/hexletguides.github.io/master/images/hexlet_logo128.png)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package)
+### FileKV.js
 
-This repository is created and maintained by the team and the community of Hexlet, an educational project. [Read more about Hexlet (in Russian)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package).
-##
+В программировании, для некоторых задач распространены key-value базы данных. Внешне они работают по принципу ассоциативных массивов, но живут как отдельные программы и умеют делать много полезных штук: например, сохранять данные на диск, переносить данные между машинами в сети и тому подобное.
 
-# nodejs-package
+В этой задаче реализована подобная база данных в виде класса *FileKV*, который сохраняет свои данные на диске в указанном файле. Она имеет следующий интерфейс:
 
-[![Code Climate](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/gpa.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Issue Count](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/issue_count.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Build Status](https://travis-ci.org/hexlet-boilerplates/nodejs-package.svg?branch=master)](https://travis-ci.org/hexlet-boilerplates/nodejs-package)
+```
+import FileKV from '../FileKV';
 
-## Setup
+const map = new FileKV('/path/to/dbfile');
+// Получение значения по ключу
+map.get('key'); // 'value'
+map.get('unknownkey'); // null
+// Получение значения и дефолт
+map.get('unknownkey', 'default value'); // 'default value'
+// Установка и обновление ключа
+map.set('key2', 'value2');
+map.get('key2'); // 'value2'
+// Удаление ключа
+map.unset('key2');
+map.get('key2'); // null
+map.set('key', 'value');
+// Возврат всех данных из базы
+map.toObject(); // { key: 'value' }
 
-```sh
-$ make install
 ```
 
-## Run tests
+В целях тестирования бывает полезно иметь реализацию такой базы данных, которая хранит данные в памяти, а не во внешнем хранилище. Это позволяет легко сбрасывать состояние между тестами и не замедлять их.
 
-```sh
-$ make test
+### InMemoryKV.js
+
+Реализуйте и экспортируйте по умолчанию класс *InMemoryKV*, который представляет собой in-memory key-value хранилище. Данные внутри него хранятся в обычном объекте. Интерфейс этого класса совпадает с *FileKV* за исключением конструктора. Конструктор *InMemoryKV* принимает на вход объект, который становится начальным значением базы данных.
+
 ```
+import InMemoryKV from '../InMemoryKV';
+
+const map = new InMemoryKV({ key: 10 });
+map.get('key'); // 10
+
+```
+
+### keyValueFunctions.js
+
+Реализуйте и экспортируйте по умолчанию функцию `swapKeyValue`, которая принимает на вход объект базы данных и меняет в нём ключи и значения местами.
+
+*swapKeyValue --- полиморфная функция, она может работать с любой реализацией key-value, имеющей такой же интерфейс*.
+
+```
+import InMemoryKV from '../InMemoryKV';
+import swapKeyValue from '../keyValueFunctions';
+
+const map = new InMemoryKV({ key: 10 });
+map.set('key2', 'value2');
+swapKeyValue(map);
+map.get('key'); // null
+map.get(10); // 'key'
+map.get('value2'); // 'key2'
+
+```
+
+### Подсказки
+
+-   Изучите тесты
