@@ -1,23 +1,22 @@
-##
-[![Hexlet Ltd. logo](https://raw.githubusercontent.com/Hexlet/hexletguides.github.io/master/images/hexlet_logo128.png)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package)
+### helpers.js
 
-This repository is created and maintained by the team and the community of Hexlet, an educational project. [Read more about Hexlet (in Russian)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package).
-##
+Реализуйте и экспортируйте по умолчанию функцию `getGreeting(user)`, которая возвращает приветствие для пользователя. Это приветствие показывается пользователю на сайте. Если пользователь гость, то выводится "Nice to meet you Guest!", если не гость, то "Hello <Имя>!", где "<Имя>" это имя реального пользователя.
 
-# nodejs-package
+В этой задаче, способ решения остается на ваше усмотрение. Используйте знания полученные в этом курсе.
 
-[![Code Climate](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/gpa.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Issue Count](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/issue_count.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Build Status](https://travis-ci.org/hexlet-boilerplates/nodejs-package.svg?branch=master)](https://travis-ci.org/hexlet-boilerplates/nodejs-package)
+```
+import Guest from '../Guest';
+import User from '../User';
+import getGreeting from '../helpers';
 
-## Setup
+const guest = new Guest();
+getGreeting(guest); // 'Nice to meet you Guest!'
 
-```sh
-$ make install
+const user = new User('Petr');
+getGreeting(user); // 'Hello Petr!'
+
 ```
 
-## Run tests
+### Подсказки
 
-```sh
-$ make test
-```
+-   Изучите тесты
