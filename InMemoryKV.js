@@ -1,26 +1,25 @@
 import _ from 'lodash';
 
-class InMemoryFileKV {
+class InMemoryKV {
   constructor(initial = {}) {
-    this.filepath = initial;
-    Object.entries(this.filepath).forEach(([key, value]) => this.set(key, value));
+    this.map = _.cloneDeep(initial);
   }
 
   set(key, value) {
-    this.filepath = { ...this.filepath, [key]: value };
+    this.map = { ...this.map, [key]: value };
   }
 
   unset(key) {
-    this.filepath = _.omit(this.filepath, key);
+    this.map = _.omit(this.map, key);
   }
 
   get(key, defaultValue = null) {
-    return _.get(this.filepath, key, defaultValue);
+    return _.get(this.map, key, defaultValue);
   }
 
   toObject() {
-    return this.filepath;
+    return this.map;
   }
 }
 
-export default InMemoryFileKV;
+export default InMemoryKV;
