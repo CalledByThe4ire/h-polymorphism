@@ -4,7 +4,7 @@ class User {
   constructor(email, currentSubscription = null) {
     this.email = email;
     // BEGIN (write your solution here)
-
+    this.currentSubscription = currentSubscription || new FakeSubscription(this);
     // END
   }
 

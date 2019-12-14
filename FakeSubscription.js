@@ -1,3 +1,15 @@
-// BEGIN (write your solution here)
+class FakeSubscription {
+  constructor(user) {
+    this.user = user;
+  }
 
-// END
+  hasProfessionalAccess() {
+    return this.user.isAdmin();
+  }
+
+  hasPremiumAccess() {
+    return this.user.isAdmin();
+  }
+}
+
+export default FakeSubscription;
