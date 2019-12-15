@@ -1,23 +1,28 @@
-##
-[![Hexlet Ltd. logo](https://raw.githubusercontent.com/Hexlet/hexletguides.github.io/master/images/hexlet_logo128.png)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package)
+Создайте полноценное консольное приложение, которое показывает текущую погоду в городе. Оно работает так:
 
-This repository is created and maintained by the team and the community of Hexlet, an educational project. [Read more about Hexlet (in Russian)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package).
-##
+```
+$ npx babel-node bin/weather.js berlin
+Temperature in berlin: 26C
 
-# nodejs-package
-
-[![Code Climate](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/gpa.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Issue Count](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/issue_count.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Build Status](https://travis-ci.org/hexlet-boilerplates/nodejs-package.svg?branch=master)](https://travis-ci.org/hexlet-boilerplates/nodejs-package)
-
-## Setup
-
-```sh
-$ make install
 ```
 
-## Run tests
+Это консольное приложение обращается внутри себя к сервису погоды. Сервис погоды расположен на `localhost:8080`. Информацию по городу можно извлечь сделав *GET* запрос на урл `/api/v2/cities/<имя города>`. Данные от сервиса возвращаются в виде json: `{ "name": "<имя города>", temperature: "<температура>" }`.
 
-```sh
-$ make test
-```
+### src\WeatherService.js
+
+Реализуйте логику работы сервиса. Сделайте так, чтобы http-клиент не был зашит внутри класса, используйте инъекцию зависимостей для проброса клиента во внутрь.
+
+То как выполнять http-запросы через *axios* можно подсмотреть в его [документации](https://github.com/axios/axios).
+
+### bin/weather.js
+
+Реализуйте код, вызывающий сервис и печатающий на экран ожидаемую строку. Для извлечения города из аргументов командной строки, воспользуйтесь свойством `argv` глобального объекта `process`. Первый аргумент (передаваемое имя города) находится под индексом 2. Посмотреть описание и пример можно в [документации](https://nodejs.org/api/process.html#process_process_argv).
+
+### Подсказки
+
+Попробуйте ответить на вопросы:
+
+-   Сервис погоды это абстракция данных или нет?
+-   Кто отвечает за формирование текста, который мы ожидаем на выходе?
+-   Что должен вернуть метод `lookup(cityName)`?
+-   Может ли `bin` содержать определения?
