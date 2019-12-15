@@ -1,23 +1,38 @@
-##
-[![Hexlet Ltd. logo](https://raw.githubusercontent.com/Hexlet/hexletguides.github.io/master/images/hexlet_logo128.png)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package)
+TicTacToe -- известная игра в крестики нолики, на поле 3x3. В этом задании, вам предстоит реализовать данную игру. Основной движок игры находится в файле *ticTacToe.js*. В директории *strategies* находится код, который отвечает за поведение AI (искусственный интелект!). В зависимости от выбранного уровня игры, включается либо *Easy* стратегия, либо *Normal*.
 
-This repository is created and maintained by the team and the community of Hexlet, an educational project. [Read more about Hexlet (in Russian)](https://ru.hexlet.io/pages/about?utm_source=github&utm_medium=link&utm_campaign=nodejs-package).
-##
+Задание специально построено так, чтобы предоставить вам максимальную свободу в организации кода. Результат будет хорошей лакмусовой бумажкой, по которой можно оценить насколько архитектурная тема была понята.
 
-# nodejs-package
+### TicTacToe.js
 
-[![Code Climate](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/gpa.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Issue Count](https://codeclimate.com/github/hexlet-boilerplates/javascript-package/badges/issue_count.svg)](https://codeclimate.com/github/hexlet-boilerplates/javascript-package)
-[![Build Status](https://travis-ci.org/hexlet-boilerplates/nodejs-package.svg?branch=master)](https://travis-ci.org/hexlet-boilerplates/nodejs-package)
+Реализуйте класс *TicTacToe*, который представляет собой игру крестики-нолики. Принцип его работы описан в коде ниже:
 
-## Setup
+```
+// По умолчанию выбран easy уровень. Его можно изменить, передав в конструктор строку 'normal'
+const game = new TicTacToe();
 
-```sh
-$ make install
+// Если переданы аргументы, то ходит игрок. Первый аргумент -- строка, второй -- столбец.
+game.go(1, 1);
+// Ход компьютера
+game.go();
+
+game.go(0, 1);
+game.go();
+
+// Метод go возвращает true если текущий ход победный и false в ином случае
+const isWinner = game.go(2, 1); // true
+
 ```
 
-## Run tests
+### strategies/Easy.js
 
-```sh
-$ make test
-```
+Реализуйте стратегию, которая пытается заполнить поля, пробегаясь построчно слева направо и сверху вниз (начиная с левого верхнего угла). Как только она встречает свободное поле, то вставляет туда значение.
+
+### strategies/Normal.js
+
+Реализуйте стратегию, которая пытается заполнить поля, пробегаясь построчно слева направо и снизу вверх (начиная с левого нижнего угла). Как только она встречает свободное поле, то вставляет туда значение.
+
+### Подсказки
+
+-   Нумерация строк и столбцов игрового поля должна начинаться с левого верхнего угла.
+-   Кто отвечает за состояние игры, и где оно должно храниться?
+-   Не мудрите с проверкой победителя, реализуйте эту логику в лоб.
