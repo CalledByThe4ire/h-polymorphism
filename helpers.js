@@ -1,9 +1,8 @@
-// BEGIN (write your solution here)
-export default user => {
-  if (user.isUser()) {
-    return `Hello ${user.name}!`;
-  } else if (user.isGuest()) {
-    return 'Nice to meet you Guest!';
-  }
+export default (someUser) => {
+  const mapping = {
+    guest: (guest) => `Nice to meet you ${guest.getName()}!`,
+    user: (user) => `Hello ${user.getName()}!`,
+  };
+
+  return mapping[someUser.getTypeName()](someUser);
 };
-// END

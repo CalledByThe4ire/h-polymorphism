@@ -1,7 +1,7 @@
 class Guest {
   constructor() {
     // BEGIN (write your solution here)
-
+    this.type = 'guest';
     // END
     this.name = 'Guest';
   }
@@ -11,12 +11,8 @@ class Guest {
   }
 
   // BEGIN (write your solution here)
-  isUser() {
-    return this.name !== 'Guest';
-  }
-
-  isGuest() {
-    return this.name === 'Guest';
+  getTypeName() {
+    return this.type;
   }
   // END
 }
