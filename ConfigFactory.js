@@ -5,25 +5,21 @@ import YamlParser from './parsers/YamlParser';
 import Config from './Config';
 
 // BEGIN (write your solution here)
-const mapping = (str) => {
-  switch (str) {
-    case 'json':
-      return data => new JsonParser(data);
-    case 'yaml':
-    case 'yml':
-      return data => new YamlParser(data);
-    default:
-      return data => new JsonParser(data);
-  }
+const mapping = {
+  yaml: YamlParser,
+  yml: YamlParser,
+  json: JsonParser,
 };
 
-export default class {
+export default class ConfigFactory {
   static factory(filePath) {
-    const extension = path.extname(filePath).slice(1);
-    const data = fs.readFileSync(filePath);
-    const parser = mapping(extension)(data);
-    const config = parser.parse();
-    return new Config(config);
+    const type = path.extname(filePath).slice(1);
+    const parser = new mapping[type]();
+
+    const rawData = fs.readFileSync(filePath).toString();
+    const data = parser.parse(rawData);
+
+    return new Config(data);
   }
 }
 // END
