@@ -2,16 +2,14 @@
 
 class Easy {
   // BEGIN (write your solution here)
-  findCoords(grid, char) {
-    const iter = (acc, items, glyph) => {
-      if (acc.length === 2) {
-        return acc;
+  getNextStep(field) {
+    return field.reduce((acc, row, i) => {
+      const j = row.indexOf(null);
+      if (acc.length === 0 && j !== -1) {
+        return [i, j];
       }
-      const index = items.findIndex(value => value.includes(glyph));
-      const newAcc = [...acc, index];
-      return iter(newAcc, items[index], glyph);
-    };
-    return iter([], grid, char);
+      return acc;
+    }, []);
   }
   // END
 }
