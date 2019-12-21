@@ -13,7 +13,7 @@
     "dist"
   ],
   "scripts": {
-    "test": "jest --watch",
+    "test": "jest --colors",
     "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
     "prepublishOnly": "npm run build"
   },
@@ -27,7 +27,8 @@
     "url": "https://github.com/hexlet-boilerplates/nodejs-package/issues"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "bail": true
   },
   "homepage": "https://github.com/hexlet-boilerplates/nodejs-package#readme",
   "dependencies": {
